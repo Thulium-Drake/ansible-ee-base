@@ -1,0 +1,31 @@
+---
+# This file describes a base Ansible EE which contains
+# packages added by the ansible_controller role.
+#
+# As well as the additional libraries required for interfacing
+# with VMWare vSphere. TODO: add git steps
+version: 3
+
+dependencies:
+  system:
+    - git
+    - python3-cryptography
+    - python3-jmespath
+    - python3-lxml
+    - python3-netaddr
+    - python3-six
+    - python3-setuptools
+    - python3-requests
+  ansible_core:
+    package_pip: ansible-core==2.14
+  ansible_runner:
+    package_pip: ansible-runner
+  python:
+    - ara[client]
+    - passlib
+    - pyvmomi
+    - pyOpenSSL
+
+images:
+  base_image:
+    name: docker.io/redhat/ubi9:latest
