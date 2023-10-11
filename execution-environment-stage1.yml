@@ -8,14 +8,15 @@ version: 3
 
 dependencies:
   system:
-    - git
-    - python3-cryptography
-    - python3-jmespath
-    - python3-lxml
-    - python3-netaddr
-    - python3-six
-    - python3-setuptools
-    - python3-requests
+    - git [platform:rpm]
+    - jq [platform:rpm]
+    - python3-cryptography [platform:rpm]
+    - python3-jmespath [platform:rpm]
+    - python3-lxml [platform:rpm]
+    - python3-netaddr [platform:rpm]
+    - python3-six [platform:rpm]
+    - python3-setuptools [platform:rpm]
+    - python3-requests [platform:rpm]
   ansible_core:
     package_pip: ansible-core==2.14
   ansible_runner:

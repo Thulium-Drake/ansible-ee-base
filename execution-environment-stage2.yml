@@ -1,0 +1,21 @@
+---
+# This file describes a base Ansible EE which contains
+# packages added by the ansible_controller role.
+#
+# As well as the additional libraries required for interfacing
+# with VMWare vSphere. TODO: add git steps
+version: 3
+
+images:
+  base_image:
+    name: localhost/ansible-ee-base:stage1-latest
+
+additional_build_steps:
+  prepend_final: |
+    # Add ASSH
+    RUN curl -Lv $(curl -s https://api.github.com/repos/moul/assh/releases/latest | jq -r '.assets[].browser_download_url' | grep linux_amd64) | tar xzf - -C /usr/bin
+    # Install vSphere toolkit
+    RUN mkdir /opt/vmware
+    RUN curl -Lv $(curl -s https://api.github.com/repos/vmware/vsphere-automation-sdk-python/releases/latest | jq -r .tarball_url) | tar xzf - --strip-components=1 -C /opt/vmware
+    WORKDIR /opt/vmware
+    RUN pip3 install .
