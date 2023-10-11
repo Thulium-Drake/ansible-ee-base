@@ -1,9 +1,7 @@
 ---
-# This file describes a base Ansible EE which contains
-# packages added by the ansible_controller role.
-#
-# As well as the additional libraries required for interfacing
-# with VMWare vSphere. TODO: add git steps
+# Stage 2: Adding tools utilizing packages installed in Stage 1
+# * ASSH
+# * VMWare vSphere 8 SDK
 version: 3
 
 images:
