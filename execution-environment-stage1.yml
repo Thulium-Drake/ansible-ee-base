@@ -19,6 +19,7 @@ dependencies:
     package_pip: ansible-runner
   python:
     - ara[client]
+    - ansible_merge_vars
     - passlib
     - pyvmomi
     - pyOpenSSL
