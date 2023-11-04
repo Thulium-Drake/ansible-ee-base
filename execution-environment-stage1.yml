@@ -6,6 +6,7 @@ dependencies:
   system:
     - git [platform:rpm]
     - jq [platform:rpm]
+    - sudo [platform:rpm]
     - python3-cryptography [platform:rpm]
     - python3-jmespath [platform:rpm]
     - python3-lxml [platform:rpm]
