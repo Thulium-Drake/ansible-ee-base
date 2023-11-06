@@ -21,6 +21,7 @@ dependencies:
   python:
     - ara[client]
     - ansible_merge_vars
+    - dnspython
     - passlib
     - pyvmomi
     - pyOpenSSL
