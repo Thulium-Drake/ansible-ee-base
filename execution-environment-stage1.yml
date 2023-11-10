@@ -14,7 +14,6 @@ dependencies:
     - python3-six [platform:rpm]
     - python3-setuptools [platform:rpm]
     - python3-requests [platform:rpm]
-    - python39-pytz [platform:rpm]
   ansible_core:
     package_pip: ansible-core==2.14
   ansible_runner:
@@ -26,6 +25,7 @@ dependencies:
     - passlib
     - pyvmomi
     - pyOpenSSL
+    - pytz
 
 images:
   base_image:
