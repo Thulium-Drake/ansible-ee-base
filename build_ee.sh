@@ -1,6 +1,9 @@
 #!/bin/bash
 # Build the Execution Environment
 
+# Stop execution when an error occurs in any of the builder commands
+set -e
+
 EE_REGISTRY_URL=${1:=git.element-networks.nl/ansible/ee-base}
 
 # Stage 1: Base OS image with all tools installed from Package manager
