@@ -28,6 +28,9 @@ dependencies:
     - pytz
     - python-dateutil
 
+options:
+  package_manager_path: /usr/bin/dnf
+
 images:
   base_image:
     name: docker.io/redhat/ubi9:latest

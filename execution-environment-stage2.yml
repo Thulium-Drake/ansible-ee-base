@@ -4,6 +4,9 @@
 # * VMWare vSphere 8 SDK
 version: 3
 
+options:
+  package_manager_path: /usr/bin/dnf
+
 images:
   base_image:
     name: localhost/ansible-ee-base:stage1-latest
