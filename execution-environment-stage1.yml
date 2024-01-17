@@ -26,6 +26,7 @@ dependencies:
     - pyvmomi
     - pyOpenSSL
     - pytz
+    - python-dateutil
 
 images:
   base_image:
