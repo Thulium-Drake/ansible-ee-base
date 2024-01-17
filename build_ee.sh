@@ -5,7 +5,12 @@
 set -e
 
 EE_REGISTRY_URL=${1:=git.element-networks.nl/ansible/ee-base}
-ANSIBLE_VERSION=${2:=2.14}
+ANSIBLE_VERSION=$2
+
+if [ -z "$2" ]
+then
+  ANSIBLE_VERSION=2.14
+fi
 
 # Stage 1: Base OS image with all tools installed from Package manager
 sed -i "s/ANSIBLE_VERSION/$ANSIBLE_VERSION/" execution-environment-stage1.yml
