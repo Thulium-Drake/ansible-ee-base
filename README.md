@@ -12,6 +12,13 @@ It contains tools/libraries for:
 
 You can use this EE as a base for your own projects and add all required collections to it
 
+# Building
+In order to build the EE you can use the 'build_ee.sh' script, before running it, ensure you have:
+
+* Credentials for the destination registry with write privileges
+* If required, credentials for password-protected source registries
+* Configure the script using the ~/.build_ee.conf file, you can find the default values in the script
+
 # Ansible Navigator usage
 When running this with Ansible Navigator, you should create a `ansible-navigator.yml` file
 in your project, which looks like this:
