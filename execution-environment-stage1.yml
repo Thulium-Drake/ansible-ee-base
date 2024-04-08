@@ -10,7 +10,6 @@ dependencies:
     - python3-cryptography [platform:rpm]
     - python3-jmespath [platform:rpm]
     - python3-lxml [platform:rpm]
-    - python3-netaddr [platform:rpm]
     - python3-six [platform:rpm]
     - python3-setuptools [platform:rpm]
     - python3-requests [platform:rpm]
@@ -22,6 +21,7 @@ dependencies:
     - ara[client]
     - ansible_merge_vars
     - dnspython
+    - netaddr
     - passlib
     - pyvmomi
     - pyOpenSSL
