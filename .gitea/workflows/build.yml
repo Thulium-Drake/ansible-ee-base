@@ -36,6 +36,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          apt-get update
           apt-get install podman -y
           pip install ansible-core ansible-builder ansible-navigator
 
