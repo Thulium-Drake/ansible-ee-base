@@ -1,0 +1,43 @@
+---
+name: Build & Publish
+run-name: Build Podman image and publish on the Container registry
+on: # yamllint disable-line rule:truthy
+  schedule:
+    - cron: '@daily'
+  push:
+    branches:
+      - 'master'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: base-2.15
+          - name: base-2.16
+          - name: base-2.17
+    steps:
+      - name: Set Container Registry URL
+        id: set-registry-url
+        run: |
+          echo "registry-url=$(echo $GITHUB_SERVER_URL | sed 's#https\?://##')" >> $GITHUB_OUTPUT
+          echo "repository-id=$(echo ${GITHUB_REPOSITORY,,})" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: Login to Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ steps.set-registry-url.outputs.registry-url }}
+          username: ${{ env.GITHUB_ACTOR }}
+          password: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          pip install ansible-core ansible-builder ansible-navigator
+
+      - name: Build EE ${{ matrix.name }} image
+        run: |
+          ansible-builder build -v 3 -t ee-${{ matrix.name }}:latest --container-runtime=docker
