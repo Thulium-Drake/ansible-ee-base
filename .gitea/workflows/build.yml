@@ -36,6 +36,7 @@ jobs:
 
       - name: Install dependencies
         run: |
+          apt-get install podman -y
           pip install ansible-core ansible-builder ansible-navigator
 
       - name: Build EE ${{ matrix.name }} image
