@@ -29,7 +29,6 @@ dependencies:
     - pyOpenSSL
     - pytz
     - python-dateutil
-    - wheel
 
 additional_build_steps:
   append_final: |

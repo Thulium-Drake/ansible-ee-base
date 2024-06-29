@@ -1,7 +1,11 @@
 #!/bin/bash
 # Build the Execution Environments
+
+# Build all variants found in the repo by default
 EE_VERSIONS="$(ls *.yml)"
-EE_REGISTRY_URL=git.zm1.element-networks.nl/ansible
+EE_REGISTRY_URL=registry.example.com/ansible
+
+test -f $HOME/.build_ee.conf && . $HOME/.build_ee.conf
 
 for i in $EE_VERSIONS
 do

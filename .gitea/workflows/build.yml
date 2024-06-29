@@ -40,4 +40,14 @@ jobs:
 
       - name: Build EE ${{ matrix.name }} image
         run: |
-          ansible-builder build -v 3 -t ee-${{ matrix.name }}:latest --container-runtime=docker
+          echo ansible-builder build -v 3 -c ${{ matrix.name }} -f ${{ matrix.name }}.yml -t ee-${{ matrix.name }}:latest
+          ansible-builder build -v 3 -c ${{ matrix.name }} -f ${{ matrix.name }}.yml -t ee-${{ matrix.name }}:latest
+
+      - name: Upload EE image to registry
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          image: ee-${{ matrix.name }}
+          tags: latest
+          registry: ${{ steps.set-registry-url.outputs.registry-url }}
+          username: ${{ env.GITHUB_ACTOR }}
+          password: ${{ secrets.CONTAINER_REGISTRY_TOKEN }}
