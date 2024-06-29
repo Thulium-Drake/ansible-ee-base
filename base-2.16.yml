@@ -1,0 +1,49 @@
+---
+version: 3
+
+dependencies:
+  system:
+    - git [platform:rpm]
+    - jq [platform:rpm]
+    - sudo [platform:rpm]
+    - python3-cryptography [platform:rpm]
+    - python3-jmespath [platform:rpm]
+    - python3-lxml [platform:rpm]
+    - python3-six [platform:rpm]
+    - python3-setuptools [platform:rpm]
+    - python3-requests [platform:rpm]
+  python_interpreter:
+    package_system: 'python312'
+    python_path: '/usr/bin/python3.12'
+  ansible_core:
+    package_pip: ansible-core==2.16
+  ansible_runner:
+    package_pip: ansible-runner
+  python:
+    - ara[client]
+    - ansible_merge_vars
+    - dnspython
+    - netaddr
+    - passlib
+    - pyvmomi
+    - pyOpenSSL
+    - pytz
+    - python-dateutil
+    - wheel
+
+additional_build_steps:
+  append_final: |
+    # Add ASSH
+    RUN curl -Lv $(curl -s https://api.github.com/repos/moul/assh/releases/latest | jq -r '.assets[].browser_download_url' | grep linux_amd64) | tar xzf - -C /usr/bin
+    # Install vSphere toolkit
+    RUN mkdir /opt/vmware
+    RUN curl -Lv $(curl -s https://api.github.com/repos/vmware/vsphere-automation-sdk-python/releases/latest | jq -r .tarball_url) | tar xzf - --strip-components=1 -C /opt/vmware
+    WORKDIR /opt/vmware
+    RUN pip3 install .
+
+options:
+  package_manager_path: /usr/bin/dnf
+
+images:
+  base_image:
+    name: docker.io/redhat/ubi9:latest

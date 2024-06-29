@@ -1,5 +1,4 @@
 ---
-# Stage 1: install OS packages and dependencies from PyPI
 version: 3
 
 dependencies:
@@ -14,7 +13,7 @@ dependencies:
     - python3-setuptools [platform:rpm]
     - python3-requests [platform:rpm]
   ansible_core:
-    package_pip: ansible-core==ANSIBLE_VERSION
+    package_pip: ansible-core==2.15
   ansible_runner:
     package_pip: ansible-runner
   python:
@@ -27,6 +26,17 @@ dependencies:
     - pyOpenSSL
     - pytz
     - python-dateutil
+    - wheel
+
+additional_build_steps:
+  append_final: |
+    # Add ASSH
+    RUN curl -Lv $(curl -s https://api.github.com/repos/moul/assh/releases/latest | jq -r '.assets[].browser_download_url' | grep linux_amd64) | tar xzf - -C /usr/bin
+    # Install vSphere toolkit
+    RUN mkdir /opt/vmware
+    RUN curl -Lv $(curl -s https://api.github.com/repos/vmware/vsphere-automation-sdk-python/releases/latest | jq -r .tarball_url) | tar xzf - --strip-components=1 -C /opt/vmware
+    WORKDIR /opt/vmware
+    RUN pip3 install .
 
 options:
   package_manager_path: /usr/bin/dnf
